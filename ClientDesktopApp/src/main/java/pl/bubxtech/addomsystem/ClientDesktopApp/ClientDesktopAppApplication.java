@@ -2,12 +2,14 @@ package pl.bubxtech.addomsystem.ClientDesktopApp;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.*;
+import javafx.scene.shape.MeshView;
 import javafx.stage.Stage;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+
+import java.awt.*;
 
 @SpringBootApplication
 public class ClientDesktopAppApplication extends Application {
@@ -15,6 +17,8 @@ public class ClientDesktopAppApplication extends Application {
     ConfigurableApplicationContext springContext;
     Parent rootNode;
     FXMLLoader fxmlLoader;
+
+    MeshView meshView;
 
 
     public static void main(String[] args) {
@@ -35,6 +39,7 @@ public class ClientDesktopAppApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setScene(new Scene(rootNode));
+        primaryStage.setTitle("Zaloguj do serwera");
         primaryStage.centerOnScreen();
         primaryStage.show();
     }
