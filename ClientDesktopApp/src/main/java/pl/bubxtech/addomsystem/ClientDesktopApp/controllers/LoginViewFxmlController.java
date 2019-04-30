@@ -3,10 +3,18 @@ package pl.bubxtech.addomsystem.ClientDesktopApp.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
 public class LoginViewFxmlController {
+
+    private final SceneController sceneController;
+
+    @Autowired
+    public LoginViewFxmlController(SceneController sceneController) {
+        this.sceneController = sceneController;
+    }
 
     @FXML
     private Button loginButton;
@@ -22,13 +30,11 @@ public class LoginViewFxmlController {
 
     @FXML
     private void handleLoginButtonAction(ActionEvent event) {
-        System.out.println("Działa!");
-        //TODO
+        sceneController.activate(SceneController.ViewType.MAIN);
     }
 
     @FXML
     private void handleExitButtonAction(ActionEvent event) {
-        //TODO
     }
 
 

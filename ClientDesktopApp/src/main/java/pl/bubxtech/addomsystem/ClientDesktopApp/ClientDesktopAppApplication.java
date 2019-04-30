@@ -5,21 +5,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.shape.MeshView;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-
-import java.awt.*;
+import pl.bubxtech.addomsystem.ClientDesktopApp.controllers.SceneController;
 
 @SpringBootApplication
 public class ClientDesktopAppApplication extends Application {
 
     ConfigurableApplicationContext springContext;
-    Parent rootNode;
-    FXMLLoader fxmlLoader;
 
-    MeshView meshView;
-
+    @Autowired
+    private SceneController sceneController;
 
     public static void main(String[] args) {
         launch(args);
@@ -30,15 +28,12 @@ public class ClientDesktopAppApplication extends Application {
         springContext = new SpringApplicationBuilder(ClientDesktopAppApplication.class)
                 .run(getParameters().getRaw().toArray(new String[0]));
 
-        fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-        fxmlLoader.setControllerFactory(springContext::getBean);
-
-        rootNode = fxmlLoader.load();
+        sceneController.getFxmlLoader().setControllerFactory(springContext::getBean);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setScene(new Scene(rootNode));
+        primaryStage.setScene(sceneController.getMainScene());
         primaryStage.setTitle("Zaloguj do serwera");
         primaryStage.centerOnScreen();
         primaryStage.show();
@@ -48,4 +43,6 @@ public class ClientDesktopAppApplication extends Application {
     public void stop() throws Exception {
         springContext.stop();
     }
+
+
 }
